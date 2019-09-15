@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,16 +14,17 @@ public class Board implements IFactoryBalls{
         this.lenght = lenght;
     }
 
-    public void generateBalls(int pQuantity, int pPattern){
+    public void generateBalls(int pQuantity, Color pColor, int pDireccion, int pVelocidad, int pPattern){
         switch (pPattern) {
             case Patterns.PROTOTYPE:
-                generatePrototype(pQuantity);
+                Ball newBall = new Ball(pColor, pDireccion, pVelocidad);
+                generatePrototype(pQuantity, newBall);
                 break;
             case Patterns.FACTORY:
-                generateFactory(pQuantity);
+                generateFactory(pQuantity, pColor, pDireccion, pVelocidad);
                 break;
             case Patterns.BUILDER:
-                generateBuilder(pQuantity);
+                generateBuilder(pQuantity, pColor, pDireccion, pVelocidad);
                 break;
             case Patterns.POOL:
                 generatePool(pQuantity);
@@ -30,18 +32,25 @@ public class Board implements IFactoryBalls{
         }
     }
 
-    private void generatePrototype(int pQuantity){
+    private void generatePrototype(int pQuantity, Ball base){
         for (int i=0; i<pQuantity; i++){
-
+            balls.add(base.clone());
         }
     }
 
-    private void generateFactory(int pQuantity){
-
+    private void generateFactory(int pQuantity, Color pColor, int pDireccion, int pVelocidad){
+        for (int i=0; i<pQuantity; i++){
+            IFactory newBall = new Ball(pColor, pDireccion, pVelocidad);
+            balls.add((Ball) newBall);
+        }
     }
 
-    private void generateBuilder(int pQuantity){
-
+    private void generateBuilder(int pQuantity, Color pColor, int pDireccion, int pVelocidad){
+        for (int i=0; i<pQuantity; i++){
+            Ball.BallBuilder ballBuilder = new Ball.BallBuilder();
+            Ball newBall = ballBuilder.setColor(pColor).setDireccion(pDireccion).setVelocidad(pVelocidad).build();
+            balls.add(newBall);
+        }
     }
 
     private void generatePool(int pQuantity){

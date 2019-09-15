@@ -2,35 +2,34 @@ import java.awt.Color;
 
 public class Ball implements IPrototype<Ball>, IFactory, IPoolableObject {
     private Color color;
-    private int angulo;
+    private int direccion;
     private int velocidad;
     private int positionX;
     private int getPositionY;
 
-    public Ball(Color pColor, int pAngulo, int pVelocidad) {
-        this.angulo = pAngulo;
+    public Ball(Color pColor, int pDireccion, int pVelocidad) {
+        this.direccion = pDireccion;
         this.color = pColor;
         this.velocidad = pVelocidad;
     }
 
     public Ball clone() {
-        Ball clone = new Ball(this.color, this.angulo, this.velocidad);
+        Ball clone = new Ball(this.color, this.direccion, this.velocidad);
         return clone;
     }
 
     @Override
-    public void moveBall(int pixels, int limitX, int limitY) {
-        int angulo = this.angulo;
-        switch (angulo) {
+    public void moveBall(int limitX, int limitY) {
+        switch (this.direccion) {
             case 0:
-                if (isNegativeLimit(limitX, positionX + pixels) == false) {
-                    this.positionX = positionX + pixels;
+                if (isNegativeLimit(limitX, positionX +this.velocidad) == false) {
+                    this.positionX = positionX + this.velocidad;
                 } else {
-                    this.angulo = 180;
-                    this.positionX = positionX - pixels;
+                    this.direccion = 180;
+                    this.positionX = positionX - this.velocidad;
                 }
             case 180:
-                if (isPositiveLimit(limitX, positionX + pixels)) {
+                if (isPositiveLimit(limitX, positionX + this.velocidad)) {
 
                 }
         }
@@ -55,10 +54,10 @@ public class Ball implements IPrototype<Ball>, IFactory, IPoolableObject {
 
     public static class BallBuilder implements IBuilder<Ball> {
         private Color colorB;
-        private int anguloB;
+        private int direccionB;
         private int velocidadB;
         public Ball build() {
-            return new Ball(colorB,anguloB,velocidadB);
+            return new Ball(colorB,direccionB,velocidadB);
         }
 
         public BallBuilder setVelocidad(int v) {
@@ -69,8 +68,8 @@ public class Ball implements IPrototype<Ball>, IFactory, IPoolableObject {
             this.colorB=c;
             return this;
         }
-        public BallBuilder setAngulo(int a) {
-            this.anguloB=a;
+        public BallBuilder setDireccion(int d) {
+            this.direccionB=d;
             return this;
         }
 
