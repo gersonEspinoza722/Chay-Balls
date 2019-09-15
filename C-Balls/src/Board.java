@@ -27,7 +27,7 @@ public class Board implements IFactoryBalls{
                 generateBuilder(pQuantity, pColor, pDireccion, pVelocidad);
                 break;
             case Patterns.POOL:
-                generatePool(pQuantity);
+                generatePool(pQuantity, pColor, pDireccion, pVelocidad);
                 break;
         }
     }
@@ -53,7 +53,11 @@ public class Board implements IFactoryBalls{
         }
     }
 
-    private void generatePool(int pQuantity){
+    private void generatePool(int pQuantity, Color pColor, int pDireccion, int pVelocidad){
+        ConcreteObjectPool objectPool = new ConcreteObjectPool(pQuantity, pColor, pDireccion, pVelocidad);
+        for (int i=0; i<pQuantity; i++){
+            balls.add((Ball) objectPool.lockedPool.get(i));
+        }
 
     }
 

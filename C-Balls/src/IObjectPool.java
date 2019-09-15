@@ -1,4 +1,4 @@
 public interface IObjectPool {
     IPoolableObject getObject();
-    IPoolableObject releaceObject();
+    void releaseObject(IPoolableObject object);
 }
