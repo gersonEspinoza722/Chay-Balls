@@ -1,4 +1,6 @@
+import java.awt.geom.Rectangle2D;
+
 public interface IPoolableObject {
-    void moveBall(int limitX, int limitY);
+    void move(Rectangle2D bounds, int angulo);
     void stopBall();
 }
