@@ -3,13 +3,21 @@ import java.util.Stack;
 
 public class ConcreteObjectPool extends AbstractObjectPool{
 
-    public ConcreteObjectPool(int pQuantity, Color pColor, int pDireccion, int pVelocidad) {
-        this.min = pQuantity;
-        this.max = pQuantity+100;
+    private static ConcreteObjectPool singleton;
+
+    private ConcreteObjectPool() {
         this.lockedPool = new Stack<>();
         this.unlockedPool = new Stack<>();
+    }
 
-        initialize(pQuantity, pColor, pDireccion, pVelocidad);
+    public static ConcreteObjectPool getInstance(int pQuantity, Color pColor, int pDireccion, int pVelocidad){
+        if(singleton == null){
+            singleton = new ConcreteObjectPool();
+            singleton.min = pQuantity;
+            singleton.max = pQuantity+100;
+            singleton.initialize(pQuantity, pColor, pDireccion, pVelocidad);
+        }
+        return singleton;
     }
 
     @Override
