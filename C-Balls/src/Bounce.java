@@ -187,7 +187,7 @@ public class Bounce {
 
                     DELAY=11-(velocidad);
                     long startTime = System.currentTimeMillis();
-                    board.generateBalls(number, color, angle,velocidad, 1);
+                    board.generateBalls(number, color, angle,velocidad, 4);
                     long endTime = System.currentTimeMillis();
 
                     System.out.println("Pool tomó " + (endTime - startTime) + " milliseconds");

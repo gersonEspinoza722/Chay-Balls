@@ -42,7 +42,8 @@ public class ConcreteObjectPool extends AbstractObjectPool{
     }
 
     private void initialize(int pQuantity, Color pColor, int pDireccion, int pVelocidad){
-        for(int i = 0; i< pQuantity - this.unlockedPool.size(); i ++){
+        int needed = pQuantity - this.unlockedPool.size();
+        for(int i = 0; i< needed; i ++){
             unlockedPool.add(createObject(pColor, pDireccion, pVelocidad));
         }
     }
